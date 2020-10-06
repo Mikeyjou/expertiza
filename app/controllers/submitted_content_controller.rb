@@ -24,6 +24,7 @@ class SubmittedContentController < ApplicationController
     # @can_submit is the flag indicating if the user can submit or not in current stage
     @can_submit = !params.key?(:view)
     @stage = @assignment.get_current_stage(SignedUpTeam.topic_id(@participant.parent_id, @participant.user_id))
+    @submission_record = SubmissionRecord.new
   end
 
   # view is called when @assignment.submission_allowed(topic_id) is false
