@@ -15,7 +15,7 @@ gem "capistrano-db-tasks", require: false
 gem 'capistrano-passenger'
 gem 'capistrano-rails'
 gem 'capistrano-rvm'
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 1.0'
 gem 'chartjs-ror'
 gem 'coffee-rails'
 gem 'coveralls', require: false
