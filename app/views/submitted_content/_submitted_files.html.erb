@@ -20,14 +20,14 @@
 <% if (files.length > 0 or stage != "Finished")  %>
   <% if same_team_flag && stage != "Finished" %>
     <h4>&#8226; Submit a file:</h4>
-    <!--<%= form_tag({:controller=>'submitted_content',:action=>'submit_file',:id => participant.id, :origin => origin ||= nil, :response_map_id => response_map_id ||= nil},{:method => 'post', :enctype => "multipart/form-data", :onSubmit => "return checkIfFileExists(uploaded_file.value,1);"}) do %>
+    <%= form_tag({:controller=>'submitted_content',:action=>'submit_file',:id => participant.id, :origin => origin ||= nil, :response_map_id => response_map_id ||= nil},{:method => 'post', :enctype => "multipart/form-data", :onSubmit => "return checkIfFileExists(uploaded_file.value,1);"}) do %>
       <input type="checkbox" name="unzip" value=""/> Unzip submission
       <div class="form-group">
         <input type="file" id="uploaded_file" name="uploaded_file" size=40 />
       </div>
       <%= submit_tag 'Upload file', class: 'btn btn-default' %>
       <br/><br/>
-    <% end %>-->
+    <% end %>
     <%= form_for @submission_record, html: { multipart: true } do |f| %>
       <%= f.label :content %>
       <%= f.file_field :content %>
