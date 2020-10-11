@@ -1,6 +1,5 @@
 env:
   global:
-    - CC_TEST_REPORTER_ID=d20eadb9183f9f1866657be5b5e47b4a2398ff1ea0be29fbd50a26a43ea98b62
     - REPORT_REPO_NAME=Travis-ci-code-coverage-reports
     - secure: BdjdK/FwOpPzjGZSWR20+IgJ+PF/t3du8+RNSD9TTQDN+rCRl118K8F2zYQYxBKmnh5v26sdiNOBGdeCOiu4QZGHdtt/7hdh/9kgOOk+XNHogh7gQjD8wXdd8GG+xlRfynD/K3mDa7avzaCQXjOjlTla+WHdQ4uhagklqxahPjc+IPFg44tznxh3syGggQIWK9EptQRXw9JNytmuU6a9lrXk2TTXOH4HrTs4ZYfF9jM3WDb2iNL5HUCY7P7kWK/jUkL8ILE+4s1O36XatZuFZsbPJR28/Epx/MMt+Eq6sgYFOjzNptQr3QAip97qeoyqqUxTKSXNWQCulEe//yaNU03M2Ag7/AjANsHIzB7RMinPHNPdWmRhZdMxIYGa9/vWU3yEYGYDwo8qE6Tl4WjWfUKwAJi4o8FgCK6HUttw18h0GtY26vNOUqqzMFN8lEYl7oTJPyJbr+c9dMIyalqxl7I6i01ft32dxi95KfNbPqPVdJzsjFzreCJpjPhYRqExBE5OxvRXmS7rOMjx1pZdI+hj9YHNrxoStskvznPQ0kvfQmGXbHPVQVbH5DeawMYH134ByeyIEdcBg8B+WJA+B7o+7mPqZb3SIWszCBy6lrpP76Anm5AUHHBOMYrameQnSAD8Slv1x9mawQMnIKlqo+MB1HW+vlGpihyv7j+9sNk=
   matrix:
@@ -74,13 +73,3 @@ services:
   - mysql
 addons:
   firefox: latest
-notifications:
-  email:
-    recipients:
-      - expertiza-support@lists.ncsu.edu
-    on_success: change
-    on_failure: always
-  slack: expertiza-support:DS8GtpbAybxHVwwYNRvvbb39
-  webhooks:
-    urls:
-      - https://expertiza-travisci.herokuapp.com/?insertMode=update
