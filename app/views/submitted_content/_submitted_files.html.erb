@@ -28,11 +28,6 @@
       <%= submit_tag 'Upload file', class: 'btn btn-default' %>
       <br/><br/>
     <% end %>
-    <%= form_for @submission_record, html: { multipart: true } do |f| %>
-      <%= f.label :content %>
-      <%= f.file_field :content %>
-      <%= f.submit "Upload file", class: "btn btn-primary" %>
-    <% end %>
   <% end %>
 
   <%= form_tag({:controller=>'submitted_content',:action=>'folder_action', :id => participant.id, :origin => origin ||= nil}, {:multipart => true, id: 'folder-action-form'}) do %>
