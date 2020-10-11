@@ -24,7 +24,6 @@ class SubmittedContentController < ApplicationController
     # @can_submit is the flag indicating if the user can submit or not in current stage
     @can_submit = !params.key?(:view)
     @stage = @assignment.get_current_stage(SignedUpTeam.topic_id(@participant.parent_id, @participant.user_id))
-    @submission_record = SubmissionRecord.new
   end
 
   # view is called when @assignment.submission_allowed(topic_id) is false
@@ -93,19 +92,24 @@ class SubmittedContentController < ApplicationController
     participant = AssignmentParticipant.find(params[:id])
     return unless current_user_id?(participant.user_id)
     file = params[:uploaded_file]
-    file_content = file.read
     file_size_limit = 5
     
+    # check file size
     if !check_content_size(file, file_size_limit)
       flash[:error] = "File size must smaller than #{file_size_limit}MB"
       redirect_to action: 'edit', id: participant.id
       return
     end
+
+    file_content = file.read
+
+    # check file type
     if !check_content_type_integrity(file_content)
       flash[:error] = 'File type error'
       redirect_to action: 'edit', id: participant.id
       return
     end
+
     participant.team.set_student_directory_num
     @current_folder = DisplayOption.new
     @current_folder.name = "/"
@@ -119,8 +123,6 @@ class SubmittedContentController < ApplicationController
     safe_filename = file.original_filename.tr('\\', "/")
     safe_filename = FileHelper.sanitize_filename(safe_filename) # new code to sanitize file path before upload*
     full_filename = curr_directory + File.split(safe_filename).last.tr(" ", '_') # safe_filename #curr_directory +
-    puts full_filename
-    puts File.writable?(full_filename)
     File.open(full_filename, "wb") {|f| f.write(file_content) }
     if params['unzip']
       SubmittedContentHelper.unzip_file(full_filename, curr_directory, true) if get_file_type(safe_filename) == "zip"
@@ -198,12 +200,11 @@ class SubmittedContentController < ApplicationController
 
   private
 
-  
   # Verify the integrity of uploaded files.
-  # @param file [Object] uploaded file
+  # @param file_content [Object] the content of uploaded file
   # @return [Boolean] the result of verification
   def check_content_type_integrity(file_content)
-    limited_types = ['image/jpeg', 'image/png', 'image/jpg', 'application/zip', 'application/x-7z-compressed', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.oasis.opendocument.text']
+    limited_types = ['application/pdf', 'image/png', 'image/jpeg', 'application/zip', 'application/x-tar', 'application/x-7z-compressed', 'application/vnd.oasis.opendocument.text', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
     mime = MimeMagic.by_magic(file_content)
     return limited_types.include? mime.to_s
   end
