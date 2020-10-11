@@ -90,14 +90,12 @@ describe "assignment submisstion test" do
     # check content of the uploaded file
     file_upload_path = Rails.root + "pg_data/instructor6/csc517/test/Assignment1684/0/valid_assignment_file.jpg"
     expect(File).to exist(file_upload_path)
-    expect(File.read(file_upload_path)).to have_content File.read(file_path)
+    expect(File.open(file_upload_path, 'rb').read).to eql File.open(file_path, 'rb').read
   end
 
   it "is able to submit multiple valid files" do
-    
   end
 
   it "is able to update already uploaded file" do
-    
   end
 end
